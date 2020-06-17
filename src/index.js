@@ -3,6 +3,7 @@ const path = require('path');
 const readline = require('readline');
 const mkdirp = require('mkdirp');
 
+if (!process.env.INIT_CWD) process.env.INIT_CWD = process.cwd();
 if (process.cwd() === process.env.INIT_CWD) process.exit(0);
 
 const initPackageJsonPath = path.join(process.env.INIT_CWD, 'package.json');
@@ -34,7 +35,6 @@ function writeFile(filePath, content, addToGitIgnore = false) {
     fs.writeFileSync(filePath, content);
     if (addToGitIgnore) {
         const gitignorePath = path.join(process.env.INIT_CWD, '.gitignore');
-        console.log(gitignorePath)
         if (!fs.existsSync(gitignorePath)) {
             fs.writeFileSync(gitignorePath, '');
         }
@@ -46,7 +46,7 @@ function writeFile(filePath, content, addToGitIgnore = false) {
 }
 
 function checkAcceptedHighStandards() {
-    if (fs.exists(highStandardsFilePath)) return true;
+    if (fs.existsSync(highStandardsFilePath)) return true;
     
     const rl = readline.createInterface({
         input: process.stdin,
