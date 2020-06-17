@@ -25,6 +25,7 @@
     "husky": "^4.2.5",
     "semantic-release": "^17.0.8"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
