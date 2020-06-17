@@ -61,7 +61,7 @@ function checkAcceptedHighStandards() {
     });
 }
 
-module.exports.default = {
+module.exports = {
     getOwnPackageJson,
     getInitiatingProjectPackageJson,
     writeInitiatingProjectPackageJson,
