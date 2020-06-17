@@ -1,0 +1,20 @@
+{
+  "name": "base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/high-standards-nodejs/base.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/high-standards-nodejs/base/issues"
+  },
+  "homepage": "https://github.com/high-standards-nodejs/base#readme",
+  "dependencies": {
+    "mkdirp": "^1.0.4"
+  }
+}
