@@ -30,6 +30,7 @@ function getProjectRoot() {
 
 function writeInitiatingProjectPackageJson(packageJson) {
     fs.writeFileSync(
+        initPackageJsonPath,
         JSON.stringify(packageJson, null, 2)
     )
 }
