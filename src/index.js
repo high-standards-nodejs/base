@@ -52,7 +52,7 @@ function writeFile(filePath, content, addToGitIgnore = false) {
     }
 }
 
-function addDependency(packageJson, packageName, version = null) {
+async function addDependency(packageJson, packageName, version = null) {
     if (!packageJson.dependencies) packageJson.dependencies = {};
     packageJson.dependencies[packageName] = version || (await latestVersion(packageName));
     return packageJson;
