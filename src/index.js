@@ -4,6 +4,7 @@ const readline = require('readline');
 const mkdirp = require('mkdirp');
 const template = require('es6-template-strings');
 const pkgDir = require('pkg-dir');
+const latestVersion = require('latest-version'); 
 
 if (!process.env.INIT_CWD) process.env.INIT_CWD = process.cwd();
 if (process.cwd() === process.env.INIT_CWD) process.exit(0);
@@ -49,6 +50,12 @@ function writeFile(filePath, content, addToGitIgnore = false) {
             fs.appendFileSync(gitignorePath, `${filePath}\n`);
         }
     }
+}
+
+function addDependency(packageJson, packageName, version = null) {
+    if (!packageJson.dependencies) packageJson.dependencies = {};
+    packageJson.dependencies[packageName] = version || (await latestVersion(packageName));
+    return packageJson;
 }
 
 async function checkAcceptedHighStandards() {
@@ -102,11 +109,12 @@ function getTemplatePath(packageDir, filePath) {
 }
 
 module.exports = {
-    getOwnPackageJson,
-    getInitiatingProjectPackageJson,
-    writeInitiatingProjectPackageJson,
-    writeFile,
+    addDependency,
     checkAcceptedHighStandards,
-    getTemplate,
+    getInitiatingProjectPackageJson,
+    getOwnPackageJson,
     getProjectRoot,
+    getTemplate,
+    writeFile,
+    writeInitiatingProjectPackageJson,
 }
