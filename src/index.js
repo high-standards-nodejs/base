@@ -51,30 +51,32 @@ function writeFile(filePath, content, addToGitIgnore = false) {
     }
 }
 
-function checkAcceptedHighStandards() {
-    if (fs.existsSync(highStandardsFilePath)) return true;
+async function checkAcceptedHighStandards() {
+    return new Promise((resolve) => {
+        if (fs.existsSync(highStandardsFilePath)) resolve();
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
     
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
-    rl.question('Are you aware that "high-standards" libraries can add / modify / remove files in your project? (yes/NO) ', function(answer) {
-        if (answer.toLowerCase() === 'yes') {
-            createAcceptFile();
-        } else {
-            console.log('exit');
-            process.exit(0);
-        }
-        rl.close();
-    });
+        rl.question('Are you aware that "high-standards" libraries can add / modify / remove files in your project? (yes/NO) ', function(answer) {
+            if (answer.toLowerCase() === 'yes') {
+                createAcceptFile();
+            } else {
+                console.log('exit');
+                process.exit(0);
+            }
+            rl.close();
+            resolve();
+        });
+    })
+    
 }
 
 function createAcceptFile() {
     mkdirp.sync(path.dirname(highStandardsFilePath));
     writeFile(highStandardsFilePath, '', true);
 }
-
 
 function getTemplate(packageDir, filePath, context) {
     const templatePath = getTemplatePath(packageDir, filePath);
