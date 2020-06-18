@@ -53,7 +53,7 @@ function writeFile(filePath, content, addToGitIgnore = false) {
 
 async function checkAcceptedHighStandards() {
     return new Promise((resolve) => {
-        if (fs.existsSync(highStandardsFilePath)) resolve();
+        if (fs.existsSync(highStandardsFilePath)) return resolve();
         const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
