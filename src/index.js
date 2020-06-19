@@ -59,6 +59,12 @@ async function addDependency(packageJson, packageName, version = null) {
     return packageJson;
 }
 
+async function addDevDependency(packageJson, packageName, version = null) {
+    if (!packageJson.devDependencies) packageJson.devDependencies = {};
+    packageJson.devDependencies[packageName] = version || (await latestVersion(packageName));
+    return packageJson;
+}
+
 async function checkAcceptedHighStandards() {
     return new Promise((resolve) => {
         if (fs.existsSync(highStandardsFilePath)) return resolve();
@@ -111,6 +117,7 @@ function getTemplatePath(packageDir, filePath) {
 
 module.exports = {
     addDependency,
+    addDevDependency,
     checkAcceptedHighStandards,
     getInitiatingProjectPackageJson,
     getOwnPackageJson,
