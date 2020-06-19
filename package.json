@@ -8,7 +8,6 @@
     "type": "git",
     "url": "git+https://github.com/high-standards-js/base.git"
   },
-  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/high-standards-js/base/issues"
@@ -35,5 +34,8 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "contributors": [
+    "Oliver Lorenz <mail@oliverlorenz.com>"
+  ]
 }

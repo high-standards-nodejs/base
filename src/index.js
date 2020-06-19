@@ -35,6 +35,13 @@ function writeInitiatingProjectPackageJson(packageJson) {
     )
 }
 
+function copyFileFromTemplate(packageDir, filePath, context) {
+    base.writeFile(
+        filePath,
+        base.getTemplate(packageDir, filePath, context)
+    );
+}
+
 function writeFile(filePath, content, addToGitIgnore = false) {
     filePath = path.join(
         process.env.INIT_CWD,
@@ -126,6 +133,7 @@ module.exports = {
     addDependency,
     addDevDependency,
     checkAcceptedHighStandards,
+    copyFileFromTemplate,
     getInitiatingProjectPackageJson,
     getOwnPackageJson,
     getProjectRoot,
