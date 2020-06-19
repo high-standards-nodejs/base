@@ -112,7 +112,10 @@ function getTemplatePath(packageDir, filePath) {
         filePath
     );
     if (fs.existsSync(packageTemplatePath)) return packageTemplatePath;
-    throw new Error(`"${filePath}" not found`);
+    throw new Error(`"${filePath}" not found! checked:
+    - ${initPackageTemplatePath}
+    - ${packageTemplatePath}
+    `);
 }
 
 module.exports = {
