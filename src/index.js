@@ -55,12 +55,12 @@ function fileExists(filePath) {
     ) 
 }
 
-function getFile(filePath, forceCreateFile = false) {
+function getFile(filePath, forceCreateFile = false, defaultContent = '') {
     const fullFilePath = getFullFilePath(filePath);
     if (!fileExists(filePath) && forceCreateFile) {
         fs.writeFileSync(
             getFullFilePath(filePath),
-            ''
+            defaultContent
         );
     }
     return fs.readFileSync(fullFilePath)
