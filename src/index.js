@@ -36,9 +36,9 @@ function writeInitiatingProjectPackageJson(packageJson) {
 }
 
 function copyFileFromTemplate(packageDir, filePath, context) {
-    base.writeFile(
+    writeFile(
         filePath,
-        base.getTemplate(packageDir, filePath, context)
+        getTemplate(packageDir, filePath, context)
     );
 }
 
