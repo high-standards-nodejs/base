@@ -42,6 +42,30 @@ function copyFileFromTemplate(packageDir, filePath, context) {
     );
 }
 
+function getFullFilePath(filePath) {
+    return path.join(
+        getProjectRoot(),
+        filePath
+    );
+}
+
+function fileExists(filePath) {
+    return fs.existsSync(
+        getFullFilePath(filePath)
+    ) 
+}
+
+function getFile(filePath, forceCreateFile = false) {
+    const fullFilePath = getFullFilePath(filePath);
+    if (!fileExists(filePath) && forceCreateFile) {
+        fs.writeFileSync(
+            getFullFilePath(filePath),
+            ''
+        );
+    }
+    return fs.readFileSync(fullFilePath)
+}
+
 function writeFile(filePath, content, addToGitIgnore = false) {
     filePath = path.join(
         process.env.INIT_CWD,
@@ -134,6 +158,9 @@ module.exports = {
     addDevDependency,
     checkAcceptedHighStandards,
     copyFileFromTemplate,
+    fileExists,
+    getFile,
+    getFullFilePath,
     getInitiatingProjectPackageJson,
     getOwnPackageJson,
     getProjectRoot,
