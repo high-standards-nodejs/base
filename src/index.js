@@ -36,6 +36,10 @@ function writeInitiatingProjectPackageJson(packageJson) {
 }
 
 function writeFile(filePath, content, addToGitIgnore = false) {
+    filePath = path.join(
+        process.env.INIT_CWD,
+        filePath
+    );
     const directory = path.dirname(filePath);
     if (!fs.existsSync(directory)) {
         mkdirp.sync(directory);
