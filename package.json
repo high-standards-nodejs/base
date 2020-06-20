@@ -15,9 +15,8 @@
   "homepage": "https://github.com/high-standards-js/base#readme",
   "dependencies": {
     "@high-standards-js/gitignore": "^1.0.0",
-    "@high-standards-js/self": "^1.0.0",
+    "@high-standards-js/self": "^1.0.1",
     "es6-template-strings": "^2.0.1",
-    "husky": "4.2.5",
     "latest-version": "^5.1.0",
     "mkdirp": "^1.0.4",
     "pkg-dir": "^4.2.0"
@@ -27,7 +26,8 @@
     "@commitlint/config-conventional": "8.3.4",
     "@semantic-release/commit-analyzer": "8.0.1",
     "@semantic-release/release-notes-generator": "9.0.1",
-    "git-authors-cli": "1.0.27"
+    "git-authors-cli": "1.0.27",
+    "husky": "4.2.5"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
