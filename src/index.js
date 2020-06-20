@@ -4,8 +4,7 @@ const readline = require('readline');
 const mkdirp = require('mkdirp');
 const template = require('es6-template-strings');
 const pkgDir = require('pkg-dir');
-const latestVersion = require('latest-version'); 
-const gitignore = require('@high-standards-js/gitignore');
+const latestVersion = require('latest-version');
 
 if (!process.env.INIT_CWD) process.env.INIT_CWD = process.cwd();
 if (process.cwd() === process.env.INIT_CWD) process.exit(0);
@@ -76,7 +75,7 @@ function getFile(filePath, forceCreateFile = false, defaultContent = '') {
     return fs.readFileSync(fullFilePath)
 }
 
-function writeFile(filePath, content, addToGitIgnore = false) {
+function writeFile(filePath, content) {
     const fullFilePath = path.join(
         process.env.INIT_CWD,
         filePath
@@ -86,7 +85,6 @@ function writeFile(filePath, content, addToGitIgnore = false) {
         mkdirp.sync(directory);
     }
     fs.writeFileSync(fullFilePath, content);
-    if (addToGitIgnore) gitignore.add(filePath);
 }
 
 async function addDependency(packageJson, packageName, version = null) {
@@ -127,7 +125,6 @@ async function checkAcceptedHighStandards() {
 function createAcceptFile() {
     const acceptFilePath = '.highstandards/accept';
     touchFile(acceptFilePath, '');
-    gitignore.add(acceptFilePath)
 }
 
 function touchFile(filePath) {
