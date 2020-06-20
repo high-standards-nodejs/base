@@ -55,11 +55,21 @@ function fileExists(filePath) {
     ) 
 }
 
+function createFile(fullFilePath, defaultContent) {
+    const dirpath = path.dirname(fullFilePath);
+    mkdirp.sync(dirpath);
+    fs.writeFileSync(
+        fullFilePath,
+        defaultContent
+    );
+}
+
 function getFile(filePath, forceCreateFile = false, defaultContent = '') {
     const fullFilePath = getFullFilePath(filePath);
     if (!fileExists(filePath) && forceCreateFile) {
-        fs.writeFileSync(
-            getFullFilePath(filePath),
+        path.dirname(fullFilePath)
+        createFile(
+            fullFilePath,
             defaultContent
         );
     }
