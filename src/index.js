@@ -10,7 +10,6 @@ if (!process.env.INIT_CWD) process.env.INIT_CWD = process.cwd();
 if (process.cwd() === process.env.INIT_CWD) process.exit(0);
 
 const initPackageJsonPath = path.join(process.env.INIT_CWD, 'package.json');
-const highStandardsFilePath = path.join(process.env.INIT_CWD, '.highstandards', 'accepted');
 
 function getOwnPackageJson() {
     return JSON.parse(
@@ -112,7 +111,8 @@ async function addDevDependency(packageJson, packageName, version = null) {
 
 async function checkAcceptedHighStandards() {
     return new Promise((resolve) => {
-        if (fs.existsSync(highStandardsFilePath)) return resolve();
+        
+        if (fileExists('.highstandards/accept')) return resolve();
         const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
@@ -133,8 +133,7 @@ async function checkAcceptedHighStandards() {
 }
 
 function createAcceptFile() {
-    mkdirp.sync(path.dirname(highStandardsFilePath));
-    writeFile(highStandardsFilePath, '', true);
+    writeFile('.highstandards/accept', '', true);
 }
 
 function getTemplate(packageDir, filePath, context) {
