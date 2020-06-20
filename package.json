@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/high-standards-js/base#readme",
   "dependencies": {
-    "@high-standards-js/gitignore": "^1.0.0",
+    "@high-standards-js/gitignore": "^1.0.1",
     "@high-standards-js/self": "^1.0.1",
     "es6-template-strings": "^2.0.1",
     "latest-version": "^5.1.0",
