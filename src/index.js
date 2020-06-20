@@ -5,6 +5,7 @@ const mkdirp = require('mkdirp');
 const template = require('es6-template-strings');
 const pkgDir = require('pkg-dir');
 const latestVersion = require('latest-version'); 
+const gitignore = require('@high-standards-js/gitignore');
 
 if (!process.env.INIT_CWD) process.env.INIT_CWD = process.cwd();
 if (process.cwd() === process.env.INIT_CWD) process.exit(0);
@@ -76,25 +77,16 @@ function getFile(filePath, forceCreateFile = false, defaultContent = '') {
 }
 
 function writeFile(filePath, content, addToGitIgnore = false) {
-    filePath = path.join(
+    const fullFilePath = path.join(
         process.env.INIT_CWD,
         filePath
     );
-    const directory = path.dirname(filePath);
+    const directory = path.dirname(fullFilePath);
     if (!fs.existsSync(directory)) {
         mkdirp.sync(directory);
     }
-    fs.writeFileSync(filePath, content);
-    if (addToGitIgnore) {
-        const gitignorePath = path.join(process.env.INIT_CWD, '.gitignore');
-        if (!fs.existsSync(gitignorePath)) {
-            fs.writeFileSync(gitignorePath, '');
-        }
-        const gitignoreContent = fs.readFileSync(gitignorePath);
-        if (!new RegExp(filePath).test(gitignoreContent)) {
-            fs.appendFileSync(gitignorePath, `${filePath}\n`);
-        }
-    }
+    fs.writeFileSync(fullFilePath, content);
+    if (addToGitIgnore) gitignore.add(filePath);
 }
 
 async function addDependency(packageJson, packageName, version = null) {
@@ -133,7 +125,21 @@ async function checkAcceptedHighStandards() {
 }
 
 function createAcceptFile() {
-    writeFile('.highstandards/accept', '', true);
+    const acceptFilePath = '.highstandards/accept';
+    touchFile(acceptFilePath, '');
+    gitignore.add(acceptFilePath)
+}
+
+function touchFile(filePath) {
+    const fullFilePath = path.join(
+        process.env.INIT_CWD,
+        filePath
+    );
+    const directory = path.dirname(fullFilePath);
+    if (!fs.existsSync(directory)) {
+        mkdirp.sync(directory);
+    }
+    writeFile(fullFilePath, '');
 }
 
 function getTemplate(packageDir, filePath, context) {
@@ -174,6 +180,7 @@ module.exports = {
     getOwnPackageJson,
     getProjectRoot,
     getTemplate,
+    touchFile,
     writeFile,
     writeInitiatingProjectPackageJson,
 }
