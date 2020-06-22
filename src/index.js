@@ -134,6 +134,7 @@ function getTemplatePath(packageDir, filePath) {
     getOwnPackageJson().name,
     filePath,
   );
+
   if (fs.existsSync(packageTemplatePath)) return packageTemplatePath;
   throw new Error(`"${filePath}" not found! checked:
     - ${initPackageTemplatePath}
