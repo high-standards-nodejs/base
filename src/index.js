@@ -12,8 +12,8 @@ if (process.cwd() === process.env.INIT_CWD) process.exit(0);
 
 const initPackageJsonPath = path.join(process.env.INIT_CWD, 'package.json');
 
-function getOwnPackageJson() {
-  return JSON.parse(fs.readFileSync(path.join('.', 'package.json')));
+function getOwnPackageJson(packageDir) {
+  return JSON.parse(fs.readFileSync(path.join(pkgDir.sync(packageDir), 'package.json')));
 }
 
 function getInitiatingProjectPackageJson() {
@@ -121,9 +121,9 @@ function getTemplate(packageDir, filePath, context) {
 
 function getTemplatePath(packageDir, filePath) {
   const initPackageTemplatePath = path.join(
-    pkgDir.sync(process.env.INIT_CWD),
+    process.env.INIT_CWD,
     '.highstandards',
-    getOwnPackageJson().name,
+    getOwnPackageJson(packageDir).name,
     filePath,
   );
   if (fs.existsSync(initPackageTemplatePath)) return initPackageTemplatePath;
@@ -131,7 +131,7 @@ function getTemplatePath(packageDir, filePath) {
   const packageTemplatePath = path.join(
     pkgDir.sync(packageDir),
     '.highstandards',
-    getOwnPackageJson().name,
+    getOwnPackageJson(packageDir).name,
     filePath,
   );
 
