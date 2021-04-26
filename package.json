@@ -17,7 +17,7 @@
     "es6-template-strings": "^2.0.1",
     "latest-version": "^5.1.0",
     "mkdirp": "^1.0.4",
-    "pkg-dir": "^4.2.0"
+    "pkg-dir": "^5.0.0"
   },
   "devDependencies": {
     "commitlint": "9.0.1",
